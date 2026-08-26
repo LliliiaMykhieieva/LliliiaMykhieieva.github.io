@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NHS England Appointment Analysis | Liliia Mykhieieva</title>
+
+  <meta
+    name="description"
+    content="NHS England appointment and capacity analysis by Liliia Mykhieieva. Python analysis of service demand, capacity utilisation, missed appointments and resource allocation."
+  >
+
+  <style>
+
+    :root {
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --text: #151515;
+      --muted: #68717a;
+      --line: #d9dde1;
+      --accent: #005eb8;
+      --accent-soft: #e8f1f8;
+      --dark: #0b1f33;
+      --dark-soft: #173653;
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Helvetica,
+        Arial,
+        sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(90%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    /* NAVIGATION */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247,245,240,.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .back {
+      color: var(--muted);
+      font-size: 14px;
+      transition: .2s ease;
+    }
+
+    .back:hover {
+      color: var(--text);
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 105px 0 90px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 28px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 35px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      max-width: 1030px;
+      font-size: clamp(55px, 8vw, 108px);
+      line-height: .97;
+      font-weight: 480;
+      letter-spacing: -.055em;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .hero-intro {
+      max-width: 790px;
+      margin-top: 38px;
+      font-size: clamp(20px, 2vw, 26px);
+      line-height: 1.48;
+      color: var(--muted);
+    }
+
+    .project-meta {
+      margin-top: 65px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+
+    .meta-label {
+      display: block;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: .11em;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .meta-value {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* GENERAL */
+
+    section {
+      padding: 110px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 50px;
+      margin-bottom: 65px;
+    }
+
+    .section-number {
+      padding-top: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      max-width: 900px;
+      font-size: clamp(38px, 5vw, 65px);
+      line-height: 1.06;
+      font-weight: 480;
+      letter-spacing: -.04em;
+    }
+
+    h3 {
+      line-height: 1.25;
+    }
+
+    .lead {
+      max-width: 820px;
+      font-size: clamp(22px, 2.8vw, 33px);
+      line-height: 1.42;
+      letter-spacing: -.02em;
+    }
+
+    .lead strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .copy {
+      max-width: 790px;
+      margin-top: 25px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    /* BUSINESS PROBLEM */
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 80px;
+    }
+
+    .question-card {
+      background: var(--accent);
+      color: white;
+      padding: 42px;
+    }
+
+    .question-label {
+      margin-bottom: 20px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #d7e8f7;
+    }
+
+    .question-card p {
+      font-size: 24px;
+      line-height: 1.43;
+    }
+
+    /* APPROACH */
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .approach-card {
+      padding: 30px;
+      min-height: 215px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .approach-number {
+      color: var(--accent);
+      font-size: 11px;
+      margin-bottom: 30px;
+    }
+
+    .approach-card h3 {
+      font-size: 17px;
+      margin-bottom: 12px;
+    }
+
+    .approach-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* KEY METRICS */
+
+    .dark-section {
+      background: var(--dark);
+      color: white;
+    }
+
+    .dark-section .section-number {
+      color: #a9b9c7;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(255,255,255,.2);
+      border-left: 1px solid rgba(255,255,255,.2);
+    }
+
+    .stat {
+      padding: 38px 28px;
+      min-height: 190px;
+      border-right: 1px solid rgba(255,255,255,.2);
+      border-bottom: 1px solid rgba(255,255,255,.2);
+    }
+
+    .stat-number {
+      display: block;
+      margin-bottom: 14px;
+      font-size: clamp(36px, 4vw, 58px);
+      line-height: 1;
+      letter-spacing: -.045em;
+    }
+
+    .stat-label {
+      color: #b4c2ce;
+      font-size: 13px;
+    }
+
+    /* FINDINGS */
+
+    .finding-block {
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: 70px;
+      padding: 55px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .finding-block:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .finding-label {
+      display: inline-block;
+      margin-bottom: 17px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .finding-block h3 {
+      font-size: clamp(27px, 3vw, 39px);
+      letter-spacing: -.03em;
+      font-weight: 500;
+    }
+
+    .finding-content {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .finding-content strong {
+      color: var(--text);
+    }
+
+    .finding-content p + p {
+      margin-top: 18px;
+    }
+
+    /* DEMAND BARS */
+
+    .demand-bars {
+      margin-top: 35px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 145px 1fr 85px;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 19px;
+    }
+
+    .bar-label {
+      font-size: 13px;
+    }
+
+    .bar-track {
+      height: 12px;
+      background: #e0e4e8;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .bar-value {
+      text-align: right;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* INTERPRETATION */
+
+    .interpretation {
+      margin-top: 35px;
+      padding: 28px 30px;
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+    }
+
+    .interpretation strong {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--accent);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+
+    .interpretation p {
+      color: #475663;
+      font-size: 15px;
+    }
+
+    /* EFFICIENCY */
+
+    .efficiency-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .efficiency-card {
+      padding: 35px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .efficiency-card span {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--accent);
+      font-size: 38px;
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .efficiency-card h3 {
+      margin-bottom: 12px;
+      font-size: 22px;
+    }
+
+    .efficiency-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* DECISION */
+
+    .decision-section {
+      background: var(--accent-soft);
+    }
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .decision-card {
+      padding: 38px;
+      background: white;
+      border: 1px solid #cad8e4;
+    }
+
+    .decision-card h3 {
+      margin-bottom: 14px;
+      font-size: 23px;
+      letter-spacing: -.02em;
+    }
+
+    .decision-card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .decision-card.highlight {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .decision-card.highlight p {
+      color: #dbeaf6;
+    }
+
+    /* DATA QUALITY */
+
+    .limitations-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .limitation {
+      padding: 30px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .limitation h3 {
+      margin-bottom: 11px;
+      font-size: 17px;
+    }
+
+    .limitation p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* RECOMMENDATIONS */
+
+    .recommendation {
+      display: grid;
+      grid-template-columns: 80px 1fr 1.25fr;
+      gap: 38px;
+      padding: 37px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .recommendation:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .rec-number {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .recommendation h3 {
+      font-size: 21px;
+      letter-spacing: -.02em;
+    }
+
+    .recommendation p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* BUSINESS VALUE */
+
+    .value-section {
+      background: var(--dark);
+      color: white;
+    }
+
+    .value-section .section-number {
+      color: #a9b9c7;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 75px;
+    }
+
+    .value-statement {
+      font-size: clamp(30px, 4vw, 51px);
+      line-height: 1.24;
+      letter-spacing: -.035em;
+    }
+
+    .value-side {
+      color: #b7c5d0;
+      font-size: 16px;
+    }
+
+    .value-side strong {
+      color: white;
+    }
+
+    .value-side p + p {
+      margin-top: 23px;
+    }
+
+    /* TOOLS */
+
+    .tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tool {
+      padding: 10px 15px;
+      background: white;
+      border: 1px solid var(--line);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+
+    /* NEXT */
+
+    .next-project {
+      padding: 95px 0;
+      background: var(--accent);
+      color: white;
+    }
+
+    .next-label {
+      margin-bottom: 18px;
+      color: #d4e6f4;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .next-project a {
+      display: inline-block;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,.5);
+      font-size: clamp(37px, 5vw, 65px);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+    }
+
+    footer {
+      padding: 25px 0;
+      background: var(--accent);
+      color: #d4e6f4;
+      border-top: 1px solid rgba(255,255,255,.2);
+      font-size: 12px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+
+      .section-heading,
+      .problem-grid,
+      .finding-block,
+      .value-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .project-meta,
+      .stats,
+      .approach-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .decision-grid,
+      .efficiency-grid,
+      .limitations-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .recommendation {
+        grid-template-columns: 55px 1fr;
+      }
+
+      .recommendation p {
+        grid-column: 2;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .hero {
+        padding: 75px 0 65px;
+      }
+
+      section {
+        padding: 80px 0;
+      }
+
+      .project-meta,
+      .stats,
+      .approach-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bar-row {
+        grid-template-columns: 1fr 60px;
+      }
+
+      .bar-track {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
+
+      .bar-value {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      .recommendation {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .recommendation p {
+        grid-column: auto;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <!-- NAVIGATION -->
+
+  <nav>
+    <div class="container nav-inner">
+
+      <a href="index.html" class="logo">
+        Liliia Mykhieieva
+      </a>
+
+      <a href="index.html#projects" class="back">
+        ← Back to portfolio
+      </a>
+
+    </div>
+  </nav>
+
+
+  <!-- HERO -->
+
+  <header class="hero">
+
+    <div class="container">
+
+      <div class="eyebrow">
+        Healthcare Analytics · Operational Analysis
+      </div>
+
+      <h1>
+        NHS England
+        <span>Appointment Analysis.</span>
+      </h1>
+
+      <p class="hero-intro">
+        Evaluating healthcare demand, appointment utilisation and operational
+        pressure to understand whether NHS capacity challenges require more
+        infrastructure — or better use of existing resources.
+      </p>
+
+
+      <div class="project-meta">
+
+        <div>
+          <span class="meta-label">Organisation</span>
+          <span class="meta-value">NHS England</span>
+        </div>
+
+        <div>
+          <span class="meta-label">Period analysed</span>
+          <span class="meta-value">2020–2022</span>
+        </div>
+
+        <div>
+          <span class="meta-label">Focus</span>
+          <span class="meta-value">Demand · Capacity · Access</span>
+        </div>
+
+        <div>
+          <span class="meta-label">Tools</span>
+          <span class="meta-value">Python · Pandas · Visualisation</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- BUSINESS PROBLEM -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          01 / Business Problem
+        </div>
+
+        <h2>
+          Is NHS pressure primarily a capacity problem — or an utilisation
+          problem?
+        </h2>
+
+      </div>
+
+
+      <div class="problem-grid">
+
+        <div>
+
+          <p class="lead">
+            Healthcare demand is high and infrastructure expansion is costly.
+            The analysis therefore asked whether
+            <strong>existing resources could be used more effectively before
+            additional capacity is added.</strong>
+          </p>
+
+          <p class="copy">
+            Appointment demand, geographic variation, missed appointments,
+            service settings and capacity utilisation were analysed to identify
+            where operational pressure was concentrated and where efficiency
+            improvements could support service planning.
+          </p>
+
+          <p class="copy">
+            The objective was not simply to describe appointment volumes, but
+            to translate them into recommendations for capacity planning,
+            workforce allocation and service management.
+          </p>
+
+        </div>
+
+
+        <div class="question-card">
+
+          <div class="question-label">
+            Decision question
+          </div>
+
+          <p>
+            Where should NHS England expand capacity — and where could better
+            scheduling, resource allocation and appointment utilisation reduce
+            pressure first?
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- APPROACH -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          02 / Analytical Approach
+        </div>
+
+        <h2>
+          Moving from raw appointment records to operational insight.
+        </h2>
+
+      </div>
+
+
+      <div class="approach-grid">
+
+        <div class="approach-card">
+
+          <div class="approach-number">01</div>
+
+          <h3>Prepare</h3>
+
+          <p>
+            Loaded and inspected NHS datasets, checked structures, data types,
+            missing values and known metadata limitations.
+          </p>
+
+        </div>
+
+
+        <div class="approach-card">
+
+          <div class="approach-number">02</div>
+
+          <h3>Clean</h3>
+
+          <p>
+            Standardised dates and categories and prepared appointment data
+            for time-series, geographic and utilisation analysis.
+          </p>
+
+        </div>
+
+
+        <div class="approach-card">
+
+          <div class="approach-number">03</div>
+
+          <h3>Analyse</h3>
+
+          <p>
+            Aggregated appointments across time, service settings, appointment
+            status, geography and delivery mode.
+          </p>
+
+        </div>
+
+
+        <div class="approach-card">
+
+          <div class="approach-number">04</div>
+
+          <h3>Interpret</h3>
+
+          <p>
+            Connected descriptive patterns to capacity planning, missed-demand
+            recovery and resource-allocation decisions.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- KEY NUMBERS -->
+
+  <section class="dark-section">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          03 / Scale
+        </div>
+
+        <h2>
+          Demand reached more than 30 million appointments in peak months.
+        </h2>
+
+      </div>
+
+
+      <div class="stats">
+
+        <div class="stat">
+
+          <span class="stat-number">
+            30.4M
+          </span>
+
+          <span class="stat-label">
+            appointments in November 2021
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <span class="stat-number">
+            30.3M
+          </span>
+
+          <span class="stat-label">
+            appointments in October 2021
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <span class="stat-number">
+            1.57M
+          </span>
+
+          <span class="stat-label">
+            missed appointments in October 2021
+          </span>
+
+        </div>
+
+
+        <div class="stat">
+
+          <span class="stat-number">
+            6.98M
+          </span>
+
+          <span class="stat-label">
+            appointments in North West London ICB, Jan–Jun 2022
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FINDINGS -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          04 / Demand Findings
+        </div>
+
+        <h2>
+          Demand is high — but it is also seasonal and unevenly distributed.
+        </h2>
+
+      </div>
+
+
+      <!-- FINDING 1 -->
+
+      <div class="finding-block">
+
+        <div>
+
+          <span class="finding-label">
+            Finding 01
+          </span>
+
+          <h3>
+            Demand follows identifiable seasonal peaks.
+          </h3>
+
+        </div>
+
+
+        <div class="finding-content">
+
+          <p>
+            Appointment activity was not constant throughout the period.
+            October and November emerged as particularly high-demand months,
+            with another rise visible around March.
+          </p>
+
+          <div class="demand-bars">
+
+            <div class="bar-row">
+              <div class="bar-label">Nov 2021</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100%;"></div>
+              </div>
+              <div class="bar-value">30.4M</div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-label">Oct 2021</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:99.7%;"></div>
+              </div>
+              <div class="bar-value">30.3M</div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-label">Oct 2020</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:93%;"></div>
+              </div>
+              <div class="bar-value">28.3M</div>
+            </div>
+
+          </div>
+
+          <div class="interpretation">
+
+            <strong>Operational implication</strong>
+
+            <p>
+              Predictable seasonal variation supports proactive workforce and
+              resource planning rather than applying the same operating model
+              throughout the year.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FINDING 2 -->
+
+      <div class="finding-block">
+
+        <div>
+
+          <span class="finding-label">
+            Finding 02
+          </span>
+
+          <h3>
+            Pressure is concentrated in primary care.
+          </h3>
+
+        </div>
+
+
+        <div class="finding-content">
+
+          <p>
+            General Practice accounted for the largest share of appointment
+            activity, making primary care a central pressure point in the
+            system.
+          </p>
+
+          <p>
+            This means resource-planning decisions should not treat all NHS
+            service settings equally. Capacity interventions need to reflect
+            where patient activity is actually concentrated.
+          </p>
+
+          <div class="interpretation">
+
+            <strong>Operational implication</strong>
+
+            <p>
+              Target interventions at the highest-volume service settings
+              rather than spreading capacity investment evenly across the
+              system.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FINDING 3 -->
+
+      <div class="finding-block">
+
+        <div>
+
+          <span class="finding-label">
+            Finding 03
+          </span>
+
+          <h3>
+            Geographic demand varies substantially.
+          </h3>
+
+        </div>
+
+
+        <div class="finding-content">
+
+          <p>
+            High-demand Integrated Care Board areas were concentrated in major
+            population centres. North West London recorded approximately
+            <strong>6.98 million appointments between January and June
+            2022</strong>, placing it among the highest-volume areas.
+          </p>
+
+          <p>
+            North East London and other major urban regions also showed high
+            activity, demonstrating that national averages can hide significant
+            local pressure.
+          </p>
+
+          <div class="interpretation">
+
+            <strong>Operational implication</strong>
+
+            <p>
+              Resource allocation should be geographically targeted, with
+              higher-volume ICBs receiving closer capacity monitoring and more
+              flexible support.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CAPACITY -->
+
+  <section class="decision-section">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          05 / Capacity
+        </div>
+
+        <h2>
+          High demand does not automatically mean more infrastructure is the
+          first answer.
+        </h2>
+
+      </div>
+
+
+      <div class="decision-grid">
+
+        <div class="decision-card">
+
+          <h3>
+            What the data showed
+          </h3>
+
+          <p>
+            Appointment activity was extremely high, but overall capacity
+            utilisation generally remained below the planning guideline used
+            in the analysis. Spare capacity was limited rather than completely
+            absent.
+          </p>
+
+        </div>
+
+
+        <div class="decision-card highlight">
+
+          <h3>
+            What that means
+          </h3>
+
+          <p>
+            System-wide infrastructure expansion should not be the automatic
+            response. More value may first come from targeted resource
+            allocation, flexible staffing, scheduling improvements and
+            preserving a strategic capacity buffer.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <p class="copy">
+        The analysis supported maintaining approximately a 15% operational
+        spare-capacity margin where possible, allowing the system to absorb
+        seasonal variation and unexpected demand without routinely operating
+        at maximum capacity.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- MISSED APPOINTMENTS -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          06 / Missed Capacity
+        </div>
+
+        <h2>
+          More than 1.5 million monthly missed appointments represent an
+          efficiency opportunity.
+        </h2>
+
+      </div>
+
+
+      <div class="efficiency-grid">
+
+        <div class="efficiency-card">
+
+          <span>
+            1.57M
+          </span>
+
+          <h3>
+            October 2021
+          </h3>
+
+          <p>
+            Approximately 1.57 million appointments were recorded as missed,
+            representing capacity that had been scheduled but was not used.
+          </p>
+
+        </div>
+
+
+        <div class="efficiency-card">
+
+          <span>
+            1.43M
+          </span>
+
+          <h3>
+            November 2021
+          </h3>
+
+          <p>
+            High non-attendance continued during another peak-demand month,
+            making appointment management an important operational lever.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <p class="copy">
+        In a system managing tens of millions of appointments each month,
+        reducing even part of the non-attendance rate can release usable
+        capacity without building new facilities.
+      </p>
+
+
+      <div class="interpretation">
+
+        <strong>Business opportunity</strong>
+
+        <p>
+          Strengthen appointment reminders, make cancellation and rescheduling
+          easier, investigate the causes of repeated non-attendance and improve
+          patient self-service so unused slots can return to the system sooner.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- APPOINTMENT DELIVERY -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          07 / Delivery Model
+        </div>
+
+        <h2>
+          Face-to-face care remains dominant, but remote delivery can support
+          targeted capacity flexibility.
+        </h2>
+
+      </div>
+
+
+      <div class="problem-grid">
+
+        <div>
+
+          <p class="lead">
+            The analysis did not suggest replacing face-to-face care.
+            Instead, it identified <strong>selective remote delivery as an
+            additional capacity-management option.</strong>
+          </p>
+
+          <p class="copy">
+            Face-to-face appointments remained the principal consultation
+            mode. Remote consultations can nevertheless support appropriate
+            routine follow-ups and lower-complexity interactions where clinical
+            requirements allow.
+          </p>
+
+        </div>
+
+
+        <div class="question-card">
+
+          <div class="question-label">
+            Practical interpretation
+          </div>
+
+          <p>
+            Channel choice should increase flexibility — not become a
+            one-size-fits-all replacement for in-person care.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- DATA QUALITY -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          08 / Data Quality
+        </div>
+
+        <h2>
+          Good analysis also means knowing which evidence not to overuse.
+        </h2>
+
+      </div>
+
+
+      <div class="limitations-grid">
+
+        <div class="limitation">
+
+          <h3>
+            Classification limitations
+          </h3>
+
+          <p>
+            Appointment categories and system-recording practices can vary,
+            meaning administrative classifications should not automatically be
+            interpreted as exact measures of clinical activity.
+          </p>
+
+        </div>
+
+
+        <div class="limitation">
+
+          <h3>
+            Time-period limitations
+          </h3>
+
+          <p>
+            The available datasets covered different periods and therefore
+            required care when comparing trends or interpreting partial-year
+            activity.
+          </p>
+
+        </div>
+
+
+        <div class="limitation">
+
+          <h3>
+            Duration anomalies
+          </h3>
+
+          <p>
+            Unusual appointment-duration values and metadata inconsistencies
+            were treated cautiously rather than being used uncritically in
+            operational conclusions.
+          </p>
+
+        </div>
+
+
+        <div class="limitation">
+
+          <h3>
+            External social data
+          </h3>
+
+          <p>
+            Twitter/X data was explored as an additional source, but low
+            engagement, hashtag-selection bias, bots and representativeness
+            concerns made it unsuitable as a primary operational planning
+            dataset.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="interpretation">
+
+        <strong>Analytical judgement</strong>
+
+        <p>
+          Internal NHS appointment datasets were prioritised for operational
+          conclusions rather than forcing a weak external data source into the
+          decision-making process.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- RECOMMENDATIONS -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          09 / Recommendations
+        </div>
+
+        <h2>
+          Increase resilience by using capacity more intelligently.
+        </h2>
+
+      </div>
+
+
+      <div class="recommendation">
+
+        <div class="rec-number">
+          01
+        </div>
+
+        <h3>
+          Plan around seasonal demand.
+        </h3>
+
+        <p>
+          Use recurring monthly demand patterns to anticipate pressure and
+          adjust workforce and operational resources before peak periods
+          arrive.
+        </p>
+
+      </div>
+
+
+      <div class="recommendation">
+
+        <div class="rec-number">
+          02
+        </div>
+
+        <h3>
+          Prioritise high-demand regions.
+        </h3>
+
+        <p>
+          Focus capacity monitoring and resource allocation on high-volume ICBs
+          rather than applying uniform national interventions.
+        </p>
+
+      </div>
+
+
+      <div class="recommendation">
+
+        <div class="rec-number">
+          03
+        </div>
+
+        <h3>
+          Preserve operational headroom.
+        </h3>
+
+        <p>
+          Maintain an appropriate spare-capacity margin so the system can
+          respond to demand surges without depending on permanent
+          over-utilisation.
+        </p>
+
+      </div>
+
+
+      <div class="recommendation">
+
+        <div class="rec-number">
+          04
+        </div>
+
+        <h3>
+          Reduce missed appointments.
+        </h3>
+
+        <p>
+          Strengthen reminders, cancellation and rescheduling processes and
+          investigate the underlying causes of non-attendance.
+        </p>
+
+      </div>
+
+
+      <div class="recommendation">
+
+        <div class="rec-number">
+          05
+        </div>
+
+        <h3>
+          Expand patient self-service.
+        </h3>
+
+        <p>
+          Make it easier for patients to manage bookings so cancelled slots
+          can return to the available appointment pool more quickly.
+        </p>
+
+      </div>
+
+
+      <div class="recommendation">
+
+        <div class="rec-number">
+          06
+        </div>
+
+        <h3>
+          Use remote appointments selectively.
+        </h3>
+
+        <p>
+          Increase flexibility for routine follow-up and suitable
+          lower-complexity appointments while preserving face-to-face access
+          where clinically appropriate.
+        </p>
+
+      </div>
+
+
+      <div class="recommendation">
+
+        <div class="rec-number">
+          07
+        </div>
+
+        <h3>
+          Prioritise reliable operational data.
+        </h3>
+
+        <p>
+          Base capacity decisions primarily on validated NHS datasets and use
+          social-media evidence only as supplementary context.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- BUSINESS VALUE -->
+
+  <section class="value-section">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          10 / Business Value
+        </div>
+
+        <h2>
+          The analysis reframed capacity pressure as a resource-allocation
+          problem as well as an infrastructure problem.
+        </h2>
+
+      </div>
+
+
+      <div class="value-grid">
+
+        <div class="value-statement">
+
+          High demand does not automatically justify system-wide expansion.
+
+          <br><br>
+
+          First understand where capacity is being used, where it is being
+          lost and where pressure is actually concentrated.
+
+        </div>
+
+
+        <div class="value-side">
+
+          <p>
+            The project identified <strong>when demand peaks, where appointment
+            volumes are highest and where unused scheduled capacity can be
+            recovered.</strong>
+          </p>
+
+          <p>
+            This supports more targeted decisions around workforce planning,
+            capacity buffers, appointment management and local resource
+            allocation.
+          </p>
+
+          <p>
+            The result is a more nuanced decision framework:
+            <strong>expand capacity where evidence supports it, but improve
+            utilisation first where operational inefficiency is contributing
+            to pressure.</strong>
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- TOOLKIT -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          11 / Toolkit
+        </div>
+
+        <h2>
+          Analytical methods used in the project.
+        </h2>
+
+      </div>
+
+
+      <div class="tools">
+
+        <span class="tool">Python</span>
+        <span class="tool">Jupyter Notebook</span>
+        <span class="tool">Pandas</span>
+        <span class="tool">NumPy</span>
+        <span class="tool">Matplotlib</span>
+        <span class="tool">Seaborn</span>
+        <span class="tool">Data Cleaning</span>
+        <span class="tool">EDA</span>
+        <span class="tool">Time-Series Analysis</span>
+        <span class="tool">Healthcare Analytics</span>
+        <span class="tool">Operational Analysis</span>
+        <span class="tool">Data Visualisation</span>
+        <span class="tool">Business Recommendations</span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- BACK -->
+
+  <section class="next-project">
+
+    <div class="container">
+
+      <div class="next-label">
+        Back to selected work
+      </div>
+
+      <a href="index.html#projects">
+        Explore all projects →
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="container footer-inner">
+
+      <span>
+        © 2026 Liliia Mykhieieva
+      </span>
+
+      <span>
+        NHS England · Appointment & Capacity Analysis
+      </span>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
