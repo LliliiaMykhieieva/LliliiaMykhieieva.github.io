@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Liliia Mykhieieva | Data & Business Analyst</title>
+
+  <meta
+    name="description"
+    content="Portfolio of Liliia Mykhieieva, Data & Business Analyst specialising in business analysis, data analytics, Python, SQL, Tableau, R and Excel."
+  >
+
+  <style>
+    /* =========================
+       BASE
+    ========================== */
+
+    :root {
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --text: #151515;
+      --muted: #6d6d67;
+      --line: #dedbd3;
+      --accent: #223a2e;
+      --accent-soft: #e4ebe5;
+      --dark: #172019;
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Helvetica,
+        Arial,
+        sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(90%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    /* =========================
+       NAVIGATION
+    ========================== */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247, 245, 240, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      min-height: 78px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .logo {
+      font-size: 15px;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+      min-height: calc(100vh - 78px);
+      display: flex;
+      align-items: center;
+      padding: 100px 0 90px;
+    }
+
+    .hero-content {
+      max-width: 950px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: 34px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-size: clamp(58px, 9vw, 116px);
+      font-weight: 500;
+      line-height: 0.96;
+      letter-spacing: -0.055em;
+      max-width: 1050px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      margin-top: 38px;
+      max-width: 680px;
+      font-size: clamp(19px, 2.2vw, 25px);
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .hero-actions {
+      margin-top: 42px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 24px;
+      border: 1px solid var(--text);
+      font-size: 14px;
+      font-weight: 650;
+      transition: 0.2s ease;
+    }
+
+    .button-primary {
+      background: var(--text);
+      color: white;
+    }
+
+    .button-primary:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .button-secondary:hover {
+      background: var(--surface);
+    }
+
+    .hero-meta {
+      margin-top: 70px;
+      padding-top: 25px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: 760px;
+    }
+
+    .meta-label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .meta-value {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    /* =========================
+       GENERAL SECTIONS
+    ========================== */
+
+    section {
+      padding: 120px 0;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 50px;
+      margin-bottom: 70px;
+    }
+
+    .section-number {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-top: 10px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(42px, 5vw, 68px);
+      line-height: 1.05;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+    }
+
+    /* =========================
+       ABOUT
+    ========================== */
+
+    .about {
+      border-top: 1px solid var(--line);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 80px;
+    }
+
+    .about-label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .about-copy {
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.4;
+      letter-spacing: -0.025em;
+    }
+
+    .about-copy strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .about-secondary {
+      margin-top: 35px;
+      max-width: 750px;
+      font-size: 17px;
+      color: var(--muted);
+    }
+
+    /* =========================
+       PROJECTS
+    ========================== */
+
+    .projects {
+      background: var(--dark);
+      color: white;
+    }
+
+    .projects .section-number {
+      color: #9da79f;
+    }
+
+    .projects-list {
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .project {
+      display: grid;
+      grid-template-columns: 100px 1.15fr 1fr;
+      gap: 45px;
+      padding: 58px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      transition: 0.25s ease;
+    }
+
+    .project:hover {
+      padding-left: 14px;
+    }
+
+    .project-number {
+      font-size: 13px;
+      color: #aeb7b0;
+      letter-spacing: 0.1em;
+    }
+
+    .project-title h3 {
+      font-size: clamp(30px, 3.4vw, 48px);
+      line-height: 1.08;
+      font-weight: 450;
+      letter-spacing: -0.035em;
+      margin-bottom: 14px;
+    }
+
+    .project-title .project-org {
+      font-size: 14px;
+      color: #aeb7b0;
+    }
+
+    .project-description {
+      color: #c8ceca;
+      font-size: 16px;
+    }
+
+    .project-description strong {
+      color: white;
+      font-weight: 600;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .tag {
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 6px 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #dfe3e0;
+    }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 25px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid #8ea696;
+      padding-bottom: 5px;
+      color: #dfe8e1;
+    }
+
+    /* =========================
+       SKILLS
+    ========================== */
+
+    .skills {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line);
+    }
+
+    .skill-group {
+      min-height: 270px;
+      padding: 32px;
+      border-right: 1px solid var(--line);
+    }
+
+    .skill-group:first-child {
+      border-left: 1px solid var(--line);
+    }
+
+    .skill-group h3 {
+      margin-bottom: 26px;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .skill-group ul {
+      list-style: none;
+    }
+
+    .skill-group li {
+      color: var(--muted);
+      margin: 9px 0;
+      font-size: 15px;
+    }
+
+    /* =========================
+       EXPERIENCE
+    ========================== */
+
+    .timeline {
+      border-top: 1px solid var(--line);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 210px 1fr 1.4fr;
+      gap: 40px;
+      border-bottom: 1px solid var(--line);
+      padding: 35px 0;
+    }
+
+    .timeline-date {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .timeline-role {
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .timeline-company {
+      color: var(--muted);
+      font-size: 15px;
+      margin-top: 5px;
+    }
+
+    .timeline-description {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    /* =========================
+       EDUCATION
+    ========================== */
+
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .education-card {
+      background: var(--surface);
+      padding: 32px;
+      border: 1px solid var(--line);
+    }
+
+    .education-card span {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+
+    .education-card h3 {
+      font-size: 19px;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .education-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* =========================
+       CONTACT
+    ========================== */
+
+    .contact {
+      background: var(--accent);
+      color: white;
+      padding: 110px 0;
+    }
+
+    .contact-content {
+      max-width: 950px;
+    }
+
+    .contact-label {
+      color: #c4d1c7;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      margin-bottom: 25px;
+    }
+
+    .contact h2 {
+      font-size: clamp(48px, 7vw, 92px);
+      font-weight: 450;
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+    }
+
+    .contact-links {
+      margin-top: 50px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .contact-links a {
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(255,255,255,0.5);
+      font-size: 15px;
+    }
+
+    footer {
+      background: var(--accent);
+      color: #c4d1c7;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding: 25px 0 35px;
+      font-size: 12px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media (max-width: 900px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-meta {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .section-heading {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .project {
+        grid-template-columns: 60px 1fr;
+      }
+
+      .project-description {
+        grid-column: 2;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .education-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .hero {
+        min-height: auto;
+        padding: 80px 0;
+      }
+
+      section {
+        padding: 85px 0;
+      }
+
+      .project {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 40px 0;
+      }
+
+      .project-description {
+        grid-column: auto;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-group {
+        border-left: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="container nav-inner">
+      <a class="logo" href="#top">Liliia Mykhieieva</a>
+
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="container">
+
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          Data & Business Analyst
+        </div>
+
+        <h1>
+          Turning data into
+          <span>business decisions.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          I analyse complex data, uncover meaningful patterns and translate
+          them into clear recommendations that help organisations make better
+          decisions.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#projects" class="button button-primary">
+            View selected work
+          </a>
+
+          <a href="mailto:liliia.mykhieieva@gmail.com"
+             class="button button-secondary">
+            Get in touch
+          </a>
+        </div>
+
+        <div class="hero-meta">
+
+          <div>
+            <span class="meta-label">Focus</span>
+            <span class="meta-value">
+              Data Analytics · Business Analysis
+            </span>
+          </div>
+
+          <div>
+            <span class="meta-label">Toolkit</span>
+            <span class="meta-value">
+              Python · SQL · Tableau · R · Excel
+            </span>
+          </div>
+
+          <div>
+            <span class="meta-label">Location</span>
+            <span class="meta-value">
+              London, United Kingdom
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+
+      <div class="section-heading">
+        <div class="section-number">01 / About</div>
+
+        <h2>
+          Analysis with a clear business purpose.
+        </h2>
+      </div>
+
+      <div class="about-grid">
+
+        <div class="about-label">
+          Profile
+        </div>
+
+        <div>
+
+          <p class="about-copy">
+            I am a Data & Business Analyst who enjoys working at the point
+            where <strong>business problems, data and people meet.</strong>
+          </p>
+
+          <p class="about-secondary">
+            My work spans healthcare, customer behaviour, marketing and
+            operational analytics. I use Python, R, SQL, Tableau and Excel to
+            move from problem definition and data preparation through analysis,
+            visualisation and stakeholder recommendations.
+          </p>
+
+          <p class="about-secondary">
+            Before moving into analytics, I built eight years of international
+            experience across aviation and logistics — environments where
+            communication, operational judgement and stakeholder coordination
+            mattered every day. I now bring that commercial and client-facing
+            perspective into analytical work.
+          </p>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- PROJECTS -->
+  <section class="projects" id="projects">
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          02 / Selected Work
+        </div>
+
+        <h2>
+          Four projects. Four different business problems.
+        </h2>
+
+      </div>
+
+
+      <div class="projects-list">
+
+
+        <!-- PROJECT 01 -->
+        <article class="project">
+
+          <div class="project-number">
+            01
+          </div>
+
+          <div class="project-title">
+
+            <h3>
+              Cancer Support Netherlands
+            </h3>
+
+            <div class="project-org">
+              Patient Navigator · Employer Partner Project
+            </div>
+
+          </div>
+
+          <div class="project-description">
+
+            <p>
+              <strong>Business problem:</strong>
+              international cancer patients in the Netherlands face healthcare
+              information fragmented across Dutch-language sources, making it
+              difficult to understand where to go, what to ask and what to do
+              next.
+            </p>
+
+            <p style="margin-top:16px;">
+              Translated 26 patient needs into analytical requirements and
+              built a traceable English knowledge base containing
+              <strong>1,378 records</strong> from trusted healthcare sources.
+              I then validated <strong>260 semantic-search results</strong> to
+              assess information coverage and identify gaps around waiting
+              times, English-speaking providers and practical patient support.
+            </p>
+
+            <p style="margin-top:16px;">
+              <strong>Business value:</strong>
+              converted fragmented source information into evidence-based
+              priorities and requirements for CSN's future Patient Navigator.
+            </p>
+
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">Semantic Search</span>
+              <span class="tag">Data Cleaning</span>
+              <span class="tag">NLP</span>
+              <span class="tag">Business Analysis</span>
+            </div>
+
+            <span class="project-link">
+              Full case study coming next →
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <!-- PROJECT 02 -->
+        <article class="project">
+
+          <div class="project-number">
+            02
+          </div>
+
+          <div class="project-title">
+
+            <h3>
+              NHS England
+            </h3>
+
+            <div class="project-org">
+              Appointment & Capacity Analysis
+            </div>
+
+          </div>
+
+          <div class="project-description">
+
+            <p>
+              <strong>Business problem:</strong>
+              how can appointment data help identify pressure points in NHS
+              demand, access and workforce capacity?
+            </p>
+
+            <p style="margin-top:16px;">
+              Analysed appointment data from 2020–2022 to investigate demand,
+              workforce utilisation, appointment patterns and regional
+              variation across NHS networks.
+            </p>
+
+            <p style="margin-top:16px;">
+              The analysis identified peak-demand periods, high-volume regions
+              and limited spare capacity, including more than
+              <strong>1.5 million missed appointments in October 2021</strong>.
+            </p>
+
+            <p style="margin-top:16px;">
+              <strong>Business value:</strong>
+              translated operational patterns into recommendations around
+              workforce planning, appointment management and resource
+              allocation.
+            </p>
+
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">Pandas</span>
+              <span class="tag">EDA</span>
+              <span class="tag">Healthcare Analytics</span>
+              <span class="tag">Data Visualisation</span>
+            </div>
+
+            <span class="project-link">
+              Full case study coming next →
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <!-- PROJECT 03 -->
+        <article class="project">
+
+          <div class="project-number">
+            03
+          </div>
+
+          <div class="project-title">
+
+            <h3>
+              Turtle Games
+            </h3>
+
+            <div class="project-org">
+              Customer & Loyalty Analytics
+            </div>
+
+          </div>
+
+          <div class="project-description">
+
+            <p>
+              <strong>Business problem:</strong>
+              how can customer behaviour be used to improve loyalty,
+              engagement and marketing decisions?
+            </p>
+
+            <p style="margin-top:16px;">
+              Analysed <strong>2,000 customer records</strong> using linear
+              regression, decision trees, K-means clustering, NLP and
+              statistical analysis.
+            </p>
+
+            <p style="margin-top:16px;">
+              The analysis showed that spending behaviour was more useful for
+              customer targeting than demographics and identified
+              <strong>330 high-income, low-spending customers</strong> —
+              16.5% of the customer base — as a specific growth opportunity.
+            </p>
+
+            <p style="margin-top:16px;">
+              <strong>Business value:</strong>
+              converted model outputs into practical CRM, retention and
+              personalised-reward strategies rather than treating predictive
+              modelling as an end in itself.
+            </p>
+
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">R</span>
+              <span class="tag">Regression</span>
+              <span class="tag">Decision Trees</span>
+              <span class="tag">K-Means</span>
+              <span class="tag">NLP</span>
+            </div>
+
+            <span class="project-link">
+              Full case study coming next →
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <!-- PROJECT 04 -->
+        <article class="project">
+
+          <div class="project-number">
+            04
+          </div>
+
+          <div class="project-title">
+
+            <h3>
+              2Market
+            </h3>
+
+            <div class="project-org">
+              Marketing & Customer Analytics
+            </div>
+
+          </div>
+
+          <div class="project-description">
+
+            <p>
+              <strong>Business problem:</strong>
+              how can customer, product and campaign data reveal which markets,
+              customer groups and advertising channels should receive greater
+              marketing attention?
+            </p>
+
+            <p style="margin-top:16px;">
+              Cleaned and explored customer and marketing data in Excel,
+              structured and joined datasets using PostgreSQL and SQL, and
+              developed an interactive Tableau dashboard for decision-making.
+            </p>
+
+            <p style="margin-top:16px;">
+              Analysed customer spending by category and age group, country
+              performance, customer response rates and advertising-channel
+              conversions across markets.
+            </p>
+
+            <p style="margin-top:16px;">
+              <strong>Business value:</strong>
+              brought fragmented customer and campaign metrics into a single
+              BI view, making it easier to compare markets, understand
+              customers and evaluate marketing effectiveness.
+            </p>
+
+            <div class="tags">
+              <span class="tag">SQL</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Tableau</span>
+              <span class="tag">Excel</span>
+              <span class="tag">Marketing Analytics</span>
+              <span class="tag">Dashboarding</span>
+            </div>
+
+            <span class="project-link">
+              Full case study coming next →
+            </span>
+
+          </div>
+
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SKILLS -->
+  <section class="skills" id="skills">
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          03 / Toolkit
+        </div>
+
+        <h2>
+          Technical analysis with business context.
+        </h2>
+
+      </div>
+
+
+      <div class="skills-grid">
+
+        <div class="skill-group">
+
+          <h3>Data & Code</h3>
+
+          <ul>
+            <li>Python</li>
+            <li>R</li>
+            <li>SQL</li>
+            <li>PostgreSQL</li>
+            <li>Excel</li>
+          </ul>
+
+        </div>
+
+
+        <div class="skill-group">
+
+          <h3>Analytics</h3>
+
+          <ul>
+            <li>Exploratory Data Analysis</li>
+            <li>Statistical Analysis</li>
+            <li>Regression</li>
+            <li>Customer Segmentation</li>
+            <li>NLP & Semantic Search</li>
+          </ul>
+
+        </div>
+
+
+        <div class="skill-group">
+
+          <h3>BI & Visualisation</h3>
+
+          <ul>
+            <li>Tableau</li>
+            <li>Dashboard Development</li>
+            <li>KPI Reporting</li>
+            <li>Data Visualisation</li>
+            <li>Data Storytelling</li>
+          </ul>
+
+        </div>
+
+
+        <div class="skill-group">
+
+          <h3>Business Analysis</h3>
+
+          <ul>
+            <li>Requirements Analysis</li>
+            <li>Business Problem Definition</li>
+            <li>Stakeholder Communication</li>
+            <li>Process Improvement</li>
+            <li>Data-Driven Recommendations</li>
+          </ul>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          04 / Experience
+        </div>
+
+        <h2>
+          Analytics built on real-world operational experience.
+        </h2>
+
+      </div>
+
+
+      <div class="timeline">
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-date">
+            2026
+          </div>
+
+          <div>
+            <div class="timeline-role">
+              Data Analyst
+            </div>
+
+            <div class="timeline-company">
+              London School of Economics
+            </div>
+          </div>
+
+          <div class="timeline-description">
+            Data Analytics Career Accelerator delivering end-to-end analytical
+            projects across healthcare, customer, operational and marketing
+            problems using Python, R, SQL, Tableau and Excel.
+          </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-date">
+            2017 — 2025
+          </div>
+
+          <div>
+            <div class="timeline-role">
+              VIP Flight Attendant
+            </div>
+
+            <div class="timeline-company">
+              Kuwait Airways
+            </div>
+          </div>
+
+          <div class="timeline-description">
+            Managed cross-functional international operations in complex,
+            time-critical environments while delivering high-touch customer
+            service and coordinating with operational stakeholders.
+          </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-date">
+            2015 — 2017
+          </div>
+
+          <div>
+            <div class="timeline-role">
+              Logistics Coordinator
+            </div>
+
+            <div class="timeline-company">
+              Delta Express Inc.
+            </div>
+          </div>
+
+          <div class="timeline-description">
+            Coordinated North American freight operations, documentation,
+            tracking and client relationships while supporting process and
+            customer-retention improvements.
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- EDUCATION -->
+  <section>
+    <div class="container">
+
+      <div class="section-heading">
+
+        <div class="section-number">
+          05 / Education
+        </div>
+
+        <h2>
+          Continuous learning across analytics and business.
+        </h2>
+
+      </div>
+
+
+      <div class="education-grid">
+
+
+        <div class="education-card">
+          <span>2026</span>
+          <h3>Data Analytics</h3>
+          <p>London School of Economics and Political Science</p>
+        </div>
+
+
+        <div class="education-card">
+          <span>2025</span>
+          <h3>Certificate in Business Analytics</h3>
+          <p>Harvard Business School Online</p>
+        </div>
+
+
+        <div class="education-card">
+          <span>2025</span>
+          <h3>Professional Scrum Master I</h3>
+          <p>Scrum.org</p>
+        </div>
+
+
+        <div class="education-card">
+          <span>2012 — 2016</span>
+          <h3>Bachelor's in International Economics</h3>
+          <p>Taras Shevchenko National University of Kyiv</p>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+
+      <div class="contact-content">
+
+        <div class="contact-label">
+          Let's connect
+        </div>
+
+        <h2>
+          Interested in data that leads somewhere?
+        </h2>
+
+        <div class="contact-links">
+
+          <a href="mailto:liliia.mykhieieva@gmail.com">
+            Email
+          </a>
+
+          <a href="https://github.com/LiliiaMykhieieva"
+             target="_blank"
+             rel="noopener noreferrer">
+            GitHub
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+
+      <span>
+        © 2026 Liliia Mykhieieva
+      </span>
+
+      <span>
+        Data & Business Analyst
+      </span>
+
+    </div>
+  </footer>
+
+
+</body>
+</html>
