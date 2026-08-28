@@ -393,7 +393,28 @@
       font-size: 13px;
       font-weight: 700;
     }
+/* PROJECT VISUALS */
 
+.case-image {
+  margin-top: 35px;
+  padding: 18px;
+  background: white;
+  border: 1px solid var(--line);
+}
+
+.case-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.case-caption {
+  max-width: 850px;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
     /* INTERPRETATION */
 
     .interpretation {
@@ -1060,7 +1081,19 @@
             October and November emerged as particularly high-demand months,
             with another rise visible around March.
           </p>
+<div class="case-image">
 
+  <img
+    src="nhs-demand-seasonality.png"
+    alt="NHS monthly appointment demand and seasonal peaks"
+  >
+
+</div>
+
+<p class="case-caption">
+  Monthly appointment analysis showing recurring seasonal demand peaks across
+  NHS service settings.
+</p>
           <div class="demand-bars">
 
             <div class="bar-row">
