@@ -594,8 +594,31 @@
       }
 
       .project {
-        grid-template-columns: 60px 1fr;
-      }
+  grid-template-columns: 60px 1fr;
+  gap: 24px;
+  padding: 45px 0;
+}
+
+.project-number {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.project-title {
+  grid-column: 2;
+}
+
+.project-description {
+  grid-column: 2;
+}
+
+.project-thumbnail {
+  grid-column: 2;
+  width: 100%;
+  max-width: 420px;
+  justify-self: start;
+  margin-top: 8px;
+}
 
       .project-description {
         grid-column: 2;
@@ -635,7 +658,26 @@
       .project-description {
         grid-column: auto;
       }
+.project-number,
+.project-title,
+.project-description,
+.project-thumbnail {
+  grid-column: 1;
+  grid-row: auto;
+}
 
+.project-thumbnail {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 18px;
+  justify-self: stretch;
+}
+
+.project-thumbnail img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
       .skills-grid {
         grid-template-columns: 1fr;
       }
