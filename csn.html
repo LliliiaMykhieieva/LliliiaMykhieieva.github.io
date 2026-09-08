@@ -724,7 +724,13 @@
 .findings-grid > div {
   padding: 32px;
 }
+.prototype-image:has(img[src="csn-recommendations.png"]) {
+  display: none;
+}
 
+.prototype-image:has(img[src="csn-recommendations.png"]) + .prototype-caption {
+  display: none;
+}
 .prototype-image:has(img[src="csn-information-gaps.png"]) {
   display: none;
 }
