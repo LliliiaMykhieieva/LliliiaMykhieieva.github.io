@@ -671,12 +671,12 @@
     @media (max-width: 600px) {
 
       .hero {
-        padding: 75px 0 65px;
-      }
+    padding: 56px 0 40px;
+}
 
       section {
-        padding: 80px 0;
-      }
+    padding: 56px 0;
+}
 
       .project-meta,
       .stats,
@@ -713,7 +713,9 @@
         flex-direction: column;
       }
 /* Mobile case-study refinements */
-
+.section-heading {
+    margin-bottom: 40px;
+}
 .section-heading h2 {
   font-size: 42px;
   line-height: 1.05;
@@ -722,6 +724,10 @@
     font-size: 36px;
     line-height: 1.08;
 }
+      .stat {
+    padding: 28px;
+    min-height: 0;
+}
       .value-quote {
     font-size: 27px;
     line-height: 1.35;
@@ -729,7 +735,8 @@
 .role-grid > div,
 .method > div,
 .findings-grid > div {
-  padding: 32px;
+    padding: 28px;
+    min-height: 0;
 }
 .prototype-image:has(img[src="csn-recommendations.png"]) {
   display: none;
@@ -747,6 +754,9 @@
 
 .prototype-image:has(img[src="csn-information-gaps.png"]) + .prototype-caption {
   display: none;
+}
+      .contribution-section {
+    padding-top: 36px;
 }
     }
 .toolkit-section {
@@ -900,7 +910,7 @@
 
     </div>
 
-  </section>
+  <section class="contribution-section">
 
 
   <!-- MY CONTRIBUTION -->
