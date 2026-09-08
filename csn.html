@@ -712,7 +712,26 @@
       .footer-inner {
         flex-direction: column;
       }
+/* Mobile case-study refinements */
 
+.section-heading h2 {
+  font-size: 42px;
+  line-height: 1.05;
+}
+
+.role-grid > div,
+.method > div,
+.findings-grid > div {
+  padding: 32px;
+}
+
+.prototype-image:has(img[src="csn-information-gaps.png"]) {
+  display: none;
+}
+
+.prototype-image:has(img[src="csn-information-gaps.png"]) + .prototype-caption {
+  display: none;
+}
     }
 
   </style>
