@@ -163,7 +163,36 @@
       font-size: 14px;
       font-weight: 600;
     }
+/* IMPACT SNAPSHOT */
 
+.impact-strip {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.impact-item {
+  padding: 22px 18px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.impact-number {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--accent);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -.03em;
+}
+
+.impact-label {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
     /* GENERAL */
 
     section {
@@ -821,7 +850,18 @@
     }
 
     @media (max-width: 600px) {
+.impact-strip {
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 28px;
+}
 
+.impact-item {
+  padding: 18px 14px;
+}
+
+.impact-number {
+  font-size: 25px;
+}
       .hero {
         padding: 75px 0 65px;
       }
@@ -938,7 +978,29 @@
         </div>
 
       </div>
+<div class="impact-strip">
 
+  <div class="impact-item">
+    <span class="impact-number">50–59</span>
+    <span class="impact-label">largest & highest-spending age segment</span>
+  </div>
+
+  <div class="impact-item">
+    <span class="impact-number">~$1.05M</span>
+    <span class="impact-label">Alcohol + Meat combined spend</span>
+  </div>
+
+  <div class="impact-item">
+    <span class="impact-number">$631</span>
+    <span class="impact-label">highest average spend per customer</span>
+  </div>
+
+  <div class="impact-item">
+    <span class="impact-number">91</span>
+    <span class="impact-label">Instagram conversions · highest volume</span>
+  </div>
+
+</div>
     </div>
 
   </header>
