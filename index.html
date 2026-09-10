@@ -677,7 +677,10 @@
     }
 
     @media (max-width: 600px) {
-
+.section-heading h2 {
+  font-size: 38px;
+  line-height: 1.08;
+}
       .hero {
         min-height: auto;
         padding: 80px 0;
@@ -724,10 +727,12 @@
         grid-template-columns: 1fr;
       }
 
-      .skill-group {
-        border-left: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-      }
+.skill-group {
+  min-height: auto;
+  padding: 28px 32px;
+  border-left: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
 
       .footer-inner {
         flex-direction: column;
