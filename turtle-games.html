@@ -832,13 +832,23 @@
       }
 
       .project-meta,
-      .stats,
       .method-grid,
       .tree-grid,
       .cluster-grid {
         grid-template-columns: 1fr;
       }
+.stats {
+  grid-template-columns: repeat(2, 1fr);
+}
 
+.stat {
+  min-height: 160px;
+  padding: 24px 18px;
+}
+
+.stat-number {
+  font-size: 38px;
+}
       .recommendation {
         grid-template-columns: 1fr;
         gap: 10px;
