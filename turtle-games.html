@@ -163,7 +163,36 @@
       font-size: 14px;
       font-weight: 600;
     }
+/* IMPACT SNAPSHOT */
 
+.impact-strip {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.impact-item {
+  padding: 22px 18px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.impact-number {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--accent);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -.03em;
+}
+
+.impact-label {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
     /* GENERAL */
 
     section {
@@ -882,7 +911,29 @@
         </div>
 
       </div>
+<div class="impact-strip">
 
+  <div class="impact-item">
+    <span class="impact-number">330</span>
+    <span class="impact-label">high-potential customers identified for activation</span>
+  </div>
+
+  <div class="impact-item">
+    <span class="impact-number">45.2%</span>
+    <span class="impact-label">loyalty variation explained by spending score alone</span>
+  </div>
+
+  <div class="impact-item">
+    <span class="impact-number">5</span>
+    <span class="impact-label">behavioural customer segments identified</span>
+  </div>
+
+  <div class="impact-item">
+    <span class="impact-number">85.45%</span>
+    <span class="impact-label">adjusted R² of the improved loyalty model</span>
+  </div>
+
+</div>
     </div>
 
   </header>
