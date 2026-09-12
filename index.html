@@ -745,12 +745,28 @@
         flex-direction: column;
       }
     }
+.back-to-top {
+  text-align: center;
+  padding: 40px 0 20px;
+}
 
+.back-to-top a {
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--text);
+  border-bottom: 1px solid var(--text);
+  padding-bottom: 3px;
+}
+
+.back-to-top a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
   </style>
 </head>
 
 
-<body>
+<body id="top">
 
   <!-- NAVIGATION -->
   <nav>
@@ -1475,7 +1491,9 @@
     </div>
   </section>
 
-
+<div class="back-to-top">
+  <a href="#top">Back to top ↑</a>
+</div>
   <!-- FOOTER -->
   <footer>
     <div class="container footer-inner">
